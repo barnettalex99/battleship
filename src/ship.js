@@ -13,7 +13,6 @@ class Ship {
 
   isSunk() {
     if (this.numHits === this.length) {
-      console.log('enters');
       this.sunk = true;
       return true;
     }
