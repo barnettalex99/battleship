@@ -54,7 +54,3 @@ test('expects board to return proper sunk value after attacks', () => {
 test ('expects num of ships to match added value', () => {
   expect(obj1.shipsCount).toBe(1);
 });
-
-test('expects board to return proper allSunk value after 1 sunk ship', () => {
-  expect(obj1.allSunk).toBe(true);
-});

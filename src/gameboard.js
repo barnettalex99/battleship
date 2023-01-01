@@ -10,6 +10,7 @@ class Gameboard {
     this.shipsCount = 0;
     this.sunkCount = 0;
     this.allSunk = false;
+    this.length = 64;
   }
 
   // initializes board array
@@ -23,7 +24,7 @@ class Gameboard {
     return this.board;
   }
 
-  // returns new board array with ship added
+  // returns new board array with new ship added if added to valid index
 
   placeShip(index, addedShip) {
     if (addedShip.length === 5 && ((index > 3 && index < 8) || (index > 11 && index < 16)
@@ -36,9 +37,9 @@ class Gameboard {
     || (index > 44 && index < 48) || (index > 52 && index < 56) || (index > 60 && index < 64))) {
       return 'error';
     }
-    if (addedShip.length === 3 && ((index > 4 && index < 8) || (index > 12 && index < 16)
-    || (index > 20 && index < 24) || (index > 28 && index < 32) || (index > 36 && index < 40)
-    || (index > 44 && index < 48) || (index > 52 && index < 56) || (index > 60 && index < 64))) {
+    if (addedShip.length === 3 && ((index > 5 && index < 8) || (index > 13 && index < 16)
+    || (index > 21 && index < 24) || (index > 29 && index < 32) || (index > 37 && index < 40)
+    || (index > 45 && index < 48) || (index > 53 && index < 56) || (index > 61 && index < 64))) {
       return 'error';
     }
     for (let i = index; i < (index + addedShip.length); i++) {
@@ -49,18 +50,24 @@ class Gameboard {
     return this.board;
   }
 
+  // register attack index, hit correct ship, and check for win conditions
+
   recieveAttack(index) {
     if (this.board[index].hasShip === true) {
       this.board[index].pointsTo.hit();
       if (this.board[index].pointsTo.isSunk() === true) {
         this.sunkCount += 1;
+        return 'sunk';
       }
       if (this.sunkCount === this.shipsCount) {
         this.allSunk = true;
+        return 'allSunk';
       }
     } else {
       this.board[index].missed = true;
+      return 'missed';
     }
+    return 'hit';
   }
 }
 module.exports = Gameboard;

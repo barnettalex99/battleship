@@ -1,0 +1,58 @@
+.content {
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#instructions {
+    margin: 50px;
+
+}
+
+#player-board-container{
+    margin-right: 200px;
+}
+
+#player-board {
+    display: grid;
+    height: 200px;
+    width: 200px;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat (8, 1fr);
+    gap: none;
+}
+
+#computer-board {
+    display: grid;
+    height: 200px;
+    width: 200px;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat (8, 1fr);
+    gap: none;
+}
+
+
+#player-board > div {
+    height: 25px;
+    width: 25px;
+    border: 1px solid black;
+}
+
+#computer-board > div {
+    height: 25px;
+    width: 25px;
+    border: 1px solid black;
+}
+
+#boards-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#computer-board > div:hover {
+    background-color: rgb(205, 208, 211);
+}
