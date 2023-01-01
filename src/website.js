@@ -6,25 +6,25 @@ const computerAttacks = [];
 
 function computerAttack(aPlayerBoard) {
   const randomCell = Math.floor(Math.random() * 63);
-  if ((computerAttacks.includes(randomCell)) === false) {
+  const hasAttacked = computerAttacks.includes(randomCell);
+  if (hasAttacked === false) {
     const compAttack = aPlayerBoard.recieveAttack(randomCell);
-    computerAttacks.push(randomCell);
     const childDiv = document.getElementById(randomCell);
-    console.log(childDiv);
-    console.log(compAttack);
+    computerAttacks.push(randomCell);
     if (compAttack === 'hit') {
       childDiv.style.backgroundColor = 'red';
     } else if (compAttack === 'sunk') {
-      // childDiv.style.backgroundColor = '#90EE90';
-      // instructionPanel.innerHTML = `You have sunk ${gameboard.sunkCount} ships out of
-      // ${gameboard.shipsCount}`;
+      childDiv.style.backgroundColor = 'red';
+      instructionPanel.innerHTML = `The computer has sunk ${aPlayerBoard.sunkCount} ships out of
+      ${aPlayerBoard.shipsCount}`;
     } else if (compAttack === 'missed') {
       childDiv.style.backgroundColor = 'red';
     } else if (compAttack === 'allSunk') {
-      // instructionPanel.innerHTML = 'Computer wins.';
+      instructionPanel.innerHTML = 'Computer wins.';
+      childDiv.style.backgroundColor = 'red';
     }
-  } else {
-    computerAttacks(aPlayerBoard);
+  } else if (hasAttacked === true) {
+    computerAttack(aPlayerBoard);
   }
 }
 
@@ -33,13 +33,14 @@ function attack(gameboard, index, el, aPlayerBoard) {
   const recievedAttack = gameboard.recieveAttack(index);
   if (recievedAttack === 'hit') {
     el.style.backgroundColor = '#90EE90';
+  } else if (recievedAttack === 'allSunk') {
+    el.style.backgroundColor = '#90EE90';
+    instructionPanel.innerHTML = 'You win';
   } else if (recievedAttack === 'sunk') {
     el.style.backgroundColor = '#90EE90';
     instructionPanel.innerHTML = `You have sunk ${gameboard.sunkCount} ships out of ${gameboard.shipsCount}`;
   } else if (recievedAttack === 'missed') {
     el.style.backgroundColor = '#FFCCCB';
-  } else if (recievedAttack === 'allSunk') {
-    instructionPanel.innerHTML = 'You win';
   }
   computerAttack(aPlayerBoard);
 }

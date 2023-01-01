@@ -24,6 +24,17 @@ class Gameboard {
     return this.board;
   }
 
+  // places ships at random locations
+
+  placeShipRandom(addedShip) {
+    const randomIndex = Math.floor(Math.random() * 63);
+    if (this.placeShip(randomIndex, addedShip) === 'error') {
+      this.placeShipRandom(addedShip);
+    } else {
+      this.placeShip(randomIndex, addedShip);
+    }
+  }
+
   // returns new board array with new ship added if added to valid index
 
   placeShip(index, addedShip) {
@@ -42,6 +53,21 @@ class Gameboard {
     || (index > 45 && index < 48) || (index > 53 && index < 56) || (index > 61 && index < 64))) {
       return 'error';
     }
+    if (this.board[index].hasShip === true) {
+      return 'error';
+    }
+    if (this.board[(index + 1)].hasShip === true) {
+      return 'error';
+    }
+    if (this.board[(index + 2)].hasShip === true) {
+      return 'error';
+    }
+    if (this.board[(index + 3)].hasShip === true) {
+      return 'error';
+    }
+    if (this.board[(index + 4)].hasShip === true) {
+      return 'error';
+    }
     for (let i = index; i < (index + addedShip.length); i++) {
       this.board[i].hasShip = true;
       this.board[i].pointsTo = addedShip;
@@ -57,11 +83,11 @@ class Gameboard {
       this.board[index].pointsTo.hit();
       if (this.board[index].pointsTo.isSunk() === true) {
         this.sunkCount += 1;
+        if (this.sunkCount === this.shipsCount) {
+          this.allSunk = true;
+          return 'allSunk';
+        }
         return 'sunk';
-      }
-      if (this.sunkCount === this.shipsCount) {
-        this.allSunk = true;
-        return 'allSunk';
       }
     } else {
       this.board[index].missed = true;

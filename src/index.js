@@ -26,13 +26,13 @@ const computerSubmarine = new Ship(3);
 
 // places the ships on each board
 
-playerBoard.placeShip(0, playerCarrier);
-playerBoard.placeShip(17, playerBattleship);
-playerBoard.placeShip(52, playerSubmarine);
+playerBoard.placeShipRandom(playerCarrier);
+playerBoard.placeShipRandom(playerBattleship);
+playerBoard.placeShipRandom(playerSubmarine);
 
-computerBoard.placeShip(0, computerCarrier);
-computerBoard.placeShip(17, computerBattleship);
-computerBoard.placeShip(52, computerSubmarine);
+computerBoard.placeShipRandom(computerCarrier);
+computerBoard.placeShipRandom(computerBattleship);
+computerBoard.placeShipRandom(computerSubmarine);
 
 // creates initial DOM
 
